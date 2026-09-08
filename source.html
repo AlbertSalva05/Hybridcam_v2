@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Source files — hybrid.cam</title>
+<meta name="description" content="Browse every file in the hybrid.cam v1 and v2 builds, view the source or a live preview, and copy it to the clipboard." />
+<meta name="theme-color" content="#060a16" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/v2.css" />
+</head>
+<body data-page="source" data-protected="source">
+<a class="u-visually-hidden" href="#main">Skip to content</a>
+<div data-partial="header"></div>
+
+<main id="main">
+<section class="l-section l-section--end" data-gate-shell hidden>
+  <div class="l-wrap">
+    <div class="section-head">
+      <p class="eyebrow">Code review · signed in as <span data-gate-who></span></p>
+      <h1 class="section-head__title">Source file directory.</h1>
+      <p class="u-mt-3"><button class="btn btn--quiet btn--sm" type="button" data-gate-out>Sign out</button></p>
+      <p class="section-head__lede">Every file in both builds. Click a file to read its source, switch to a live preview for pages, copy the whole file to your clipboard, or stack several files in the scratchpad and copy them in one go.</p>
+    </div>
+
+    <div class="browser">
+      <nav class="tree" data-tree aria-label="Project files"></nav>
+
+      <div>
+        <div class="viewer">
+          <div class="viewer__bar">
+            <span class="viewer__path" data-path>No file selected</span>
+            <div class="viewer__tools">
+              <button class="btn btn--ghost btn--sm btn--primary" type="button" data-mode-source>Source</button>
+              <button class="btn btn--ghost btn--sm" type="button" data-mode-preview>Preview</button>
+              <button class="btn btn--ghost btn--sm" type="button" data-copy-file>Copy file</button>
+              <button class="btn btn--ghost btn--sm" type="button" data-send-pad>Add to scratchpad</button>
+              <button class="btn btn--quiet btn--sm" type="button" data-clear-view>Clear</button>
+            </div>
+          </div>
+          <pre class="viewer__code" data-code tabindex="0" aria-label="File source"></pre>
+          <iframe class="viewer__frame" data-frame title="Live page preview" hidden></iframe>
+          <p class="viewer__status" data-status aria-live="polite">Pick a file from the directory.</p>
+        </div>
+
+        <div class="panel panel--pad u-mt-4">
+          <div class="panel__head">
+            <h2 class="panel__title">Scratchpad</h2>
+            <span class="badge badge--gold">Copy · clear</span>
+          </div>
+          <p class="field u-mt-4">
+            <label class="field__label" for="pad">Staged code &amp; review notes</label>
+            <textarea class="field__area" id="pad" data-pad style="min-height:180px" placeholder="Use “Add to scratchpad” to stack several files here, then copy them all at once."></textarea>
+          </p>
+          <div class="wizard__foot">
+            <button class="btn btn--primary btn--sm" type="button" data-copy-pad>Copy notes</button>
+            <button class="btn btn--quiet btn--sm" type="button" data-clear-pad>Clear fields</button>
+            <span class="wizard__note">Reads happen over http — open this page from a served folder, not from the file system.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div data-partial="footer"></div>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gate.js"></script>
+<script src="assets/js/v2.js"></script>
+<script src="assets/js/source.js"></script>
+</body>
+</html>

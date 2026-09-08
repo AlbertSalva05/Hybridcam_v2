@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Track order — hybrid.cam</title>
+<meta name="description" content="Live rider tracking, escrow status and handoff verification for a hybrid.cam order." />
+<meta name="theme-color" content="#060a16" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/v2.css" />
+</head>
+<body data-page="track">
+<a class="u-visually-hidden" href="#main">Skip to content</a>
+<div data-partial="header"></div>
+
+<main id="main">
+<section class="l-section l-section--end">
+  <div class="l-wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Order HC-24817-MNL</p>
+      <h1 class="section-head__title">Live tracking &amp; status.</h1>
+      <p class="section-head__lede">Rider, seller and buyer share one pin for the handoff window only. Every pin is labelled; hover or tap it for its live status.</p>
+    </div>
+
+    <div class="meetup reveal">
+      <!-- left: status -->
+      <div>
+        <div class="status-cards">
+          <div class="status-card">
+            <span class="status-card__icon status-card__icon--escrow" aria-hidden="true"></span>
+            <div>
+              <p class="status-card__label">ETA</p>
+              <p class="status-card__value" data-track-eta>14 min</p>
+              <p class="status-card__meta" data-track-clock>--:--</p>
+            </div>
+          </div>
+          <div class="status-card">
+            <span class="status-card__icon status-card__icon--buyer" aria-hidden="true"></span>
+            <div>
+              <p class="status-card__label">Distance</p>
+              <p class="status-card__value" data-track-dist>3.2 km</p>
+              <p class="status-card__meta">San Miguel → Ermita</p>
+            </div>
+          </div>
+          <div class="status-card">
+            <span class="status-card__icon status-card__icon--seller" aria-hidden="true"></span>
+            <div>
+              <p class="status-card__label">Escrow</p>
+              <p class="status-card__value">₱36,000</p>
+              <p class="status-card__meta">Held until OTP</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel panel--pad u-mt-4">
+          <div class="panel__head">
+            <h2 class="panel__title">Checkpoints</h2>
+            <span class="badge badge--pink"><span class="badge__dot"></span><span data-track-state>In transit · sealed unit</span></span>
+          </div>
+          <ol class="timeline u-mt-4" data-timeline></ol>
+        </div>
+
+        <div class="panel panel--pad u-mt-4">
+          <h2 class="panel__title">Release escrow</h2>
+          <p class="field__hint">Check the tamper seal against code <strong>TS-4491-A</strong>, then enter the OTP the rider reads to you.</p>
+          <div class="otp u-mt-4">
+            <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 1" />
+            <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 2" />
+            <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 3" />
+            <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 4" />
+          </div>
+          <p class="u-mt-4"><button class="btn btn--primary" type="button">Release ₱36,000</button></p>
+        </div>
+      </div>
+
+      <!-- right: map -->
+      <div>
+        <div class="map-shell">
+          <div class="map-shell__head">
+            <div>
+              <h2 class="map-shell__title">Rider HC-R-2291 · en route</h2>
+              <p class="map-shell__meta" data-rider-dist>Distance: 3.2 km</p>
+            </div>
+            <span class="map-shell__live"><span class="map-shell__pulse" aria-hidden="true"></span>Live GPS</span>
+          </div>
+          <div class="map map--tall" data-map="track" role="application" aria-label="Live rider tracking map"></div>
+          <div class="map__legend">
+            <span class="map__legend-item"><span class="map__key map__key--rider" aria-hidden="true"></span>Rider</span>
+            <span class="map__legend-item"><span class="map__key map__key--seller" aria-hidden="true"></span>Seller pickup</span>
+            <span class="map__legend-item"><span class="map__key map__key--buyer" aria-hidden="true"></span>Your drop-off</span>
+            <span class="map__legend-item"><span class="map__key map__key--route" aria-hidden="true"></span>Assigned route</span>
+          </div>
+        </div>
+
+        <div class="status-cards u-mt-4">
+          <div class="status-card">
+            <span class="status-card__icon status-card__icon--seller" aria-hidden="true"></span>
+            <div><p class="status-card__label">Seal code</p><p class="status-card__value">TS-4491-A</p><p class="status-card__meta">Scanned at pickup</p></div>
+          </div>
+          <div class="status-card">
+            <span class="status-card__icon status-card__icon--buyer" aria-hidden="true"></span>
+            <div><p class="status-card__label">Sharing expires</p><p class="status-card__value">15 min</p><p class="status-card__meta">After handoff</p></div>
+          </div>
+        </div>
+
+        <p class="field__hint">Map tiles and navigation: MapLibre GL with OpenStreetMap raster tiles. If tiles cannot load, the checkpoint list stays live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div data-partial="footer"></div>
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gate.js"></script>
+<script src="assets/js/v2.js"></script>
+</body>
+</html>

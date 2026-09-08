@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Staff sign-in — hybrid.cam</title>
+<meta name="description" content="Sign in to the hybrid.cam admin console and source review tools." />
+<meta name="theme-color" content="#060a16" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/v2.css" />
+</head>
+<body data-page="login">
+<a class="u-visually-hidden" href="#main">Skip to content</a>
+<div data-partial="header"></div>
+
+<main id="main">
+<div class="l-wrap">
+  <div class="auth">
+    <div class="auth__card">
+      <p class="eyebrow">Restricted area</p>
+      <h1 class="auth__title">Staff sign-in</h1>
+      <p class="auth__lede">The admin console and the source review tools sit behind this gate. Ask the operations lead for an account.</p>
+
+      <form class="auth__form" data-login novalidate>
+        <p class="field">
+          <label class="field__label" for="l-user">Work email</label>
+          <input class="field__control" id="l-user" type="email" autocomplete="username" required />
+        </p>
+        <p class="field">
+          <label class="field__label" for="l-pass">Password</label>
+          <input class="field__control" id="l-pass" type="password" autocomplete="current-password" required />
+        </p>
+        <p class="field__error" data-login-error tabindex="-1" hidden>That email and password combination does not match a staff account.</p>
+        <button class="btn btn--primary btn--block" type="submit">Sign in</button>
+      </form>
+
+      <p class="auth__hint">Demo accounts for this build:<br />ops@hybrid.cam / hybrid2026 — admin + source<br />dev@hybrid.cam / review2026 — source only</p>
+      <p class="field__hint">Sessions last until the browser tab closes. This is a design build: the gate is client-side and is not real authentication.</p>
+    </div>
+  </div>
+</div>
+</main>
+
+<div data-partial="footer"></div>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gate.js"></script>
+<script>
+(function () {
+  "use strict";
+  function param(k) {
+    var m = new RegExp("[?&]" + k + "=([^&]*)").exec(window.location.search);
+    return m ? decodeURIComponent(m[1]) : "";
+  }
+  function boot() {
+    var form = document.querySelector("[data-login]");
+    var err = document.querySelector("[data-login-error]");
+    var next = param("next") || "admin.html";
+    if (param("denied")) {
+      err.hidden = false;
+      err.textContent = "Your account does not have access to that page. Sign in with an account that does.";
+    }
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var s = window.HYBRID.gate.signIn(document.getElementById("l-user").value, document.getElementById("l-pass").value);
+      if (!s) {
+        err.hidden = false;
+        err.textContent = "That email and password combination does not match a staff account.";
+        err.focus();
+        return;
+      }
+      if (next.indexOf("admin") === 0 && s.scope.indexOf("admin") === -1) { next = "source.html"; }
+      window.location.href = next;
+    }, false);
+  }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot, false); }
+  else { boot(); }
+})();
+</script>
+</body>
+</html>

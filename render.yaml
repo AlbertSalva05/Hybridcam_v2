@@ -1,0 +1,15 @@
+# Render static site — hybrid.cam v2
+services:
+  - type: web
+    name: hybrid-cam-v2
+    runtime: static
+    staticPublishPath: .
+    buildCommand: ""
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /404.html
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff

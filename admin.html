@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin console — hybrid.cam</title>
+<meta name="description" content="Operations console for hybrid.cam: orders, inventory, riders, sellers, payouts and business settings." />
+<meta name="theme-color" content="#060a16" />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="assets/css/v2.css" />
+</head>
+<body data-page="admin" data-protected="admin">
+<a class="u-visually-hidden" href="#main">Skip to content</a>
+<div data-partial="header"></div>
+
+<main id="main">
+<section class="l-section l-section--end" data-gate-shell hidden>
+  <div class="l-wrap">
+    <div class="admin__head">
+      <div>
+        <p class="eyebrow eyebrow--mint">Signed in · <span data-gate-who></span></p>
+        <h1 class="admin__title">Business management</h1>
+      </div>
+      <div class="admin__actions">
+        <a class="btn btn--ghost btn--sm" href="index.html">View storefront</a>
+        <a class="btn btn--ghost btn--sm" href="source.html">Source files</a>
+        <button class="btn btn--quiet btn--sm" type="button" data-gate-out>Sign out</button>
+      </div>
+    </div>
+    <div class="admin" data-admin></div>
+  </div>
+</section>
+</main>
+
+<div data-partial="footer"></div>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/gate.js"></script>
+<script src="assets/js/v2.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
