@@ -1,9 +1,9 @@
 /* =========================================================================
-   hybrid.cam v2 — static access gate
+   hybrid.cam v2, static access gate
    Any page carrying <body data-protected="…"> is held until a staff session
    exists in sessionStorage; otherwise the visitor is sent to login.html with
    a ?next= return path. login.html itself calls Gate.signIn().
-   Design build only — credentials are client-side fixtures, never real auth.
+   Design build only, credentials are client-side fixtures, never real auth.
    ========================================================================= */
 
 (function (H) {
@@ -24,7 +24,7 @@
     try {
       if (v === null) { window.sessionStorage.removeItem(KEY); }
       else { window.sessionStorage.setItem(KEY, JSON.stringify(v)); }
-    } catch (e) { /* private mode — session simply will not persist */ }
+    } catch (e) { /* private mode, session simply will not persist */ }
   }
 
   var Gate = {
@@ -87,7 +87,7 @@
           '<p class="field__error" data-gatebox-error tabindex="-1" hidden>Those credentials do not match a staff account.</p>' +
           '<button class="btn btn--primary btn--block" type="submit">Sign in &amp; continue</button>' +
         "</form>" +
-        '<p class="gatebox__hint">Hint for this build — username: admin · password: admin1234</p>' +
+        '<p class="gatebox__hint">Hint for this build, username: admin · password: admin1234</p>' +
         '<p class="field__hint">Or open the full sign-in page: <a href="login.html">login.html</a></p>' +
       "</div>";
     document.body.appendChild(box);

@@ -1,5 +1,5 @@
 /* =========================================================================
-   hybrid.cam v2 — source browser
+   hybrid.cam v2, source browser
    Lists every file in both builds, loads it over fetch(), and offers
    source view / live preview / copy to clipboard / clear.
    ========================================================================= */
@@ -15,21 +15,16 @@
 
   var TREE = [
     ["hybrid-cam-v2 · pages", [
-      "index.html", "shop.html", "protocol.html", "sellers.html",
-      "track.html", "login.html", "admin.html", "source.html", "404.html"
+      "index.html", "shop.html", "protocol.html", "inspection.html", "disputes.html",
+      "track.html", "sellers.html", "payouts.html", "contact.html", "settings.html",
+      "privacy.html", "terms.html", "login.html", "admin.html", "source.html", "404.html"
     ]],
     ["hybrid-cam-v2 · assets", [
       "assets/css/main.css", "assets/css/v2.css",
       "assets/js/main.js", "assets/js/v2.js", "assets/js/gate.js", "assets/js/admin.js", "assets/js/source.js",
-      "assets/favicon.svg"
+      "assets/favicon.svg", "assets/logo/hc-mark.svg", "assets/logo/hc-symbol.svg", "assets/logo/hc-symbol-mono.svg"
     ]],
-    ["hybrid-cam-v2 · meta", ["README.md", "robots.txt", "render.yaml"]],
-    ["hybrid-cam-v1 (original build)", [
-      "../hybrid-cam-v1/index.html", "../hybrid-cam-v1/shop.html", "../hybrid-cam-v1/protocol.html",
-      "../hybrid-cam-v1/sellers.html", "../hybrid-cam-v1/track.html", "../hybrid-cam-v1/404.html",
-      "../hybrid-cam-v1/assets/css/main.css", "../hybrid-cam-v1/assets/js/main.js",
-      "../hybrid-cam-v1/README.md", "../hybrid-cam-v1/render.yaml", "../hybrid-cam-v1/robots.txt"
-    ]]
+    ["hybrid-cam-v2 · meta", ["robots.txt", "sitemap.xml", "site.webmanifest", "render.yaml"]]
   ];
 
   function label(path) { return path.replace("../hybrid-cam-v1/", "v1/"); }
@@ -94,7 +89,7 @@
       }).catch(function (err) {
         current.text = "";
         codeEl.textContent = "";
-        status("Could not read this file (" + err.message + "). Serve the folder over http:// — file:// blocks reads.", "warn");
+        status("Could not read this file (" + err.message + "). Serve the folder over http://, file:// blocks reads.", "warn");
       });
     }
 
@@ -110,7 +105,7 @@
       if (!current.text) { status("Nothing loaded to copy yet.", "warn"); return; }
       H.copyText(current.text).then(function (ok) {
         btn.textContent = ok ? "Copied ✓" : "Copy blocked";
-        status(ok ? "Copied " + label(current.path) + " to the clipboard." : "The browser blocked the clipboard — select the code and copy manually.", ok ? "ok" : "warn");
+        status(ok ? "Copied " + label(current.path) + " to the clipboard." : "The browser blocked the clipboard, select the code and copy manually.", ok ? "ok" : "warn");
         window.setTimeout(function () { btn.textContent = "Copy file"; }, 2000);
       });
     });

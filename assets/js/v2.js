@@ -1,5 +1,5 @@
 /* =========================================================================
-   hybrid.cam v2 — behaviour layer (loads after assets/js/main.js)
+   hybrid.cam v2, behaviour layer (loads after assets/js/main.js)
    Modules: nav config · hero slider (a distinct animated graphic per slide)
             about timeline · product grid + search/filters + detail modal
             feature sims · how-to simulator · services · testimonial coverflow
@@ -25,40 +25,40 @@
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
   function reduced() {
+    if (H.reducedMotion) { return H.reducedMotion(); }
     return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
   function store(key, val) {
     try {
       if (typeof val === "undefined") { return window.localStorage.getItem(key); }
-      window.localStorage.setItem(key, val);
+      if (H.store) { H.store.set(key, val); } else { window.localStorage.setItem(key, val); }
     } catch (e) { return null; }
     return val;
   }
 
   /* ------------------------------------------------------ nav (v2 sitemap) */
-  H.nav = [
-    { id: "home", label: "Home", href: "index.html" },
-    { id: "shop", label: "Inventory", href: "shop.html" },
-    { id: "protocol", label: "Escrow Protocol", href: "protocol.html" },
-    { id: "track", label: "Track Order", href: "track.html" },
-    { id: "sellers", label: "For Sellers", href: "sellers.html" },
-    { id: "admin", label: "Admin", href: "admin.html" },
-    { id: "source", label: "Source Files", href: "source.html" }
-  ];
-
   H.menu = [
-    { id: "shop", label: "Inventory", href: "shop.html" },
+    { id: "shop", label: "Inventory", href: "shop.html", icon: "grid" },
     {
       id: "trust", label: "Trust", children: [
-        { id: "protocol", label: "Escrow Protocol", note: "The seven checkpoints", href: "protocol.html" },
-        { id: "track", label: "Track Order", note: "Live map + status", href: "track.html" }
+        { id: "protocol", label: "Escrow protocol", note: "The seven checkpoints", href: "protocol.html", icon: "shield" },
+        { id: "inspection", label: "Inspection checklist", note: "Twelve checks on camera", href: "inspection.html", icon: "scan" },
+        { id: "disputes", label: "Dispute window", note: "48 hours after delivery", href: "disputes.html", icon: "scale" },
+        { id: "track", label: "Track order", note: "Live map and status", href: "track.html", icon: "pin" }
       ]
     },
     {
-      id: "more", label: "Company", children: [
-        { id: "sellers", label: "For Sellers", note: "List a camera", href: "sellers.html" },
-        { id: "admin", label: "Admin Console", note: "Operations login", href: "admin.html" },
-        { id: "source", label: "Source Files", note: "Browse & copy code", href: "source.html" }
+      id: "sellers", label: "Sellers", children: [
+        { id: "sellers", label: "For sellers", note: "List a camera", href: "sellers.html", icon: "store" },
+        { id: "payouts", label: "Payout schedule", note: "Fees and bank timing", href: "payouts.html", icon: "wallet" },
+        { id: "contact", label: "Contact support", note: "Call or message the desk", href: "contact.html", icon: "chat" }
+      ]
+    },
+    {
+      id: "more", label: "More", children: [
+        { id: "settings", label: "Settings", note: "Theme, motion, saved data", href: "settings.html", icon: "gear" },
+        { id: "admin", label: "Admin console", note: "Staff sign-in required", href: "admin.html", icon: "lock" },
+        { id: "source", label: "Source files", note: "Staff sign-in required", href: "source.html", icon: "code" }
       ]
     }
   ];
@@ -70,19 +70,19 @@
       {
         graphic: "camera", lead: true,
         title: "A camera marketplace<br /><span class=\"serif-accent\">where money moves last.</span>",
-        lede: "Escrowed peer-to-peer trading across Metro Manila — rider inspection on every unit, payout only after the checklist passes.",
+        lede: "Escrowed peer-to-peer trading across Metro Manila, rider inspection on every unit, payout only after the checklist passes.",
         actions: [["Browse the collection", "#products", "btn--primary"], ["How escrow works", "protocol.html", "btn--ghost"]]
       },
       {
         graphic: "vault",
         title: "Your payment sits still<br /><span class=\"serif-accent\">until the unit passes.</span>",
-        lede: "Escrow funds at booking and releases at the delivery OTP. The seller can see the money exists — they cannot touch it early.",
+        lede: "Escrow funds at booking and releases at the delivery OTP. The seller can see the money exists, they cannot touch it early.",
         actions: [["Start an escrowed order", "#delivery", "btn--primary"], ["Read the guarantee", "protocol.html", "btn--ghost"]]
       },
       {
         graphic: "inspect",
         title: "Twelve checks<br /><span class=\"serif-accent\">before it leaves the door.</span>",
-        lede: "Shutter, sensor, glass, dials, slots, battery seat — signed on-device and filmed. The clip stays attached to your order.",
+        lede: "Shutter, sensor, glass, dials, slots, battery seat, signed on-device and filmed. The clip stays attached to your order.",
         actions: [["See the checklist", "protocol.html#checklist", "btn--primary"], ["Watch a walkthrough", "#howto", "btn--ghost"]]
       },
       {
@@ -98,79 +98,79 @@
       { year: "2024", t: "Escrow first", b: "Funds hold at booking. Release needs the buyer's OTP at the door.", g: "vault" },
       { year: "2024", t: "Rider inspection", b: "Twelve checks on a live three-way call, recorded and filed.", g: "lens" },
       { year: "2025", t: "Safe meet points", b: "Geofenced locations, masked addresses, pins that expire.", g: "pin" },
-      { year: "2026", t: "1,284 units cleared", b: "3.1% fail inspection — and every one of them went home refunded.", g: "check" }
+      { year: "2026", t: "1,284 units cleared", b: "3.1% fail inspection, and every one of them went home refunded.", g: "check" }
     ],
 
     products: [
       {
         id: "r50", best: true, name: "Canon EOS R50", price: "₱36,000", value: 36000, spec: "24.2 MP · 4K30 · SC 1,204",
-        seller: "ProGear PH", brand: "Canon", condition: "MINT · VERIFIED", grade: "mint", cat: "mirrorless",
+        seller: "ProGear PH", brand: "Canon", condition: "Mint · Verified", grade: "mint", cat: "mirrorless",
         colors: [["Black", "#15181f"], ["Ivory white", "#e8e3d8"], ["Graphite", "#3d4350"]],
         photos: ["body + kit lens, 3/4 view", "top plate & dials", "sensor & mount", "screen articulated"],
         description: "A light APS-C mirrorless body that behaves like a much more expensive camera. Inspected at 1,204 actuations with the original RF-S 18-45mm kit lens, both free of fungus and separation.",
         usage: ["Best for content creators moving up from a phone.", "Dual-purpose: 4K30 video and 15 fps stills.", "Pairs with RF-S glass; adapts to EF with the official mount."],
-        options: ["Body only — ₱36,000", "With RF-S 18-45mm kit — ₱41,500", "With extra LP-E17 battery — +₱2,200", "Rider inspection included on all options"],
+        options: ["Body only, ₱36,000", "With RF-S 18-45mm kit, ₱41,500", "With extra LP-E17 battery, +₱2,200", "Rider inspection included on all options"],
         videos: [["Unboxing & first-day setup", "6:14 · beginner"], ["Cleaning the sensor safely", "4:02 · maintenance"], ["Best practices for handoff day", "3:31 · escrow"]],
         serial: "062XXXXX0913", shutter: "1,204 actuations", warranty: "Local warranty until Mar 2027"
       },
       {
         id: "xs10", best: true, name: "Fujifilm X-S10", price: "₱44,000", value: 44000, spec: "26.1 MP · IBIS · SC 4,820",
-        seller: "FujiVault", brand: "Fujifilm", condition: "LIKE NEW", grade: "like-new", cat: "mirrorless",
+        seller: "FujiVault", brand: "Fujifilm", condition: "Like new", grade: "like-new", cat: "mirrorless",
         colors: [["Black", "#15181f"], ["Silver", "#c9ccd3"]],
         photos: ["body, 3/4 view", "grip detail", "film simulation dial", "hot shoe & ports"],
         description: "In-body stabilisation in a small grip-forward body, with Fujifilm's film simulations straight out of camera. Shutter count verified at 4,820 with no sensor marks.",
         usage: ["Best for travel and street work where a tripod is not welcome.", "Film simulations reduce editing time to near zero.", "Handles well with small primes; front-heavy with long zooms."],
-        options: ["Body only — ₱44,000", "With XC 15-45mm — ₱48,900", "With XF 35mm f/2 — ₱58,500", "Seller-backed 30-day window"],
+        options: ["Body only, ₱44,000", "With XC 15-45mm, ₱48,900", "With XF 35mm f/2, ₱58,500", "Seller-backed 30-day window"],
         videos: [["Film simulation recipes", "8:47 · look"], ["IBIS handheld technique", "5:12 · technique"], ["Checking IBIS at inspection", "2:58 · escrow"]],
         serial: "1AQ2XXXX4471", shutter: "4,820 actuations", warranty: "Seller-backed 30 days"
       },
       {
         id: "zv1", name: "Sony ZV-1", price: "₱24,500", value: 24500, spec: "20.1 MP · 1\" sensor · vlog",
-        seller: "Cubao Optics", brand: "Sony", condition: "GOOD · VERIFIED", grade: "good", cat: "digicam",
+        seller: "Cubao Optics", brand: "Sony", condition: "Good · Verified", grade: "good", cat: "digicam",
         colors: [["Black", "#15181f"], ["White", "#eceae4"]],
         photos: ["compact digicam, front", "flip screen out", "windscreen mounted", "port door open"],
         description: "A pocket vlogging camera with a bright zoom and a screen that faces you. Light cosmetic wear on the base plate, glass and sensor clean.",
-        usage: ["Best for talking-head video and travel clips.", "Product showcase mode is the reason most people buy it.", "Use the bundled windscreen outdoors — the mic is exposed."],
-        options: ["Body only — ₱24,500", "With grip tripod — ₱27,900", "With 64GB V30 card — +₱1,400", "Inspection pass only"],
+        usage: ["Best for talking-head video and travel clips.", "Product showcase mode is the reason most people buy it.", "Use the bundled windscreen outdoors, the mic is exposed."],
+        options: ["Body only, ₱24,500", "With grip tripod, ₱27,900", "With 64GB V30 card, +₱1,400", "Inspection pass only"],
         videos: [["Vlog setup in five minutes", "5:02 · beginner"], ["Audio without an external mic", "6:39 · audio"], ["Battery care & storage", "3:18 · maintenance"]],
         serial: "39XXXX882", shutter: "Not applicable", warranty: "Seller-backed 14 days"
       },
       {
         id: "zfc", best: true, name: "Nikon Z fc + 28mm", price: "₱52,000", value: 52000, spec: "20.9 MP · retro body · SC 900",
-        seller: "Manila Camera Lab", brand: "Nikon", condition: "MINT · VERIFIED", grade: "mint", cat: "mirrorless",
+        seller: "Manila Camera Lab", brand: "Nikon", condition: "Mint · Verified", grade: "mint", cat: "mirrorless",
         colors: [["Silver / black", "#c9ccd3"], ["Amber brown", "#8a6a48"], ["Mint green", "#8fd3bd"]],
         photos: ["retro body with 28mm", "dial cluster top", "leatherette detail", "vari-angle screen"],
         description: "Dial-driven retro body with the pancake 28mm SE lens. Only 900 actuations; the leatherette and dials show no lift or shine.",
         usage: ["Best for photographers who prefer manual dials over menus.", "The 28mm pancake keeps it genuinely pocketable.", "Vari-angle screen makes it a capable second video body."],
-        options: ["With 28mm SE — ₱52,000", "Body only — ₱44,900", "Add 16-50mm VR — +₱9,500", "Local warranty until Aug 2027"],
+        options: ["With 28mm SE, ₱52,000", "Body only, ₱44,900", "Add 16-50mm VR, +₱9,500", "Local warranty until Aug 2027"],
         videos: [["Shooting with dials only", "7:22 · technique"], ["Cleaning leatherette safely", "3:44 · maintenance"], ["What to check on retro bodies", "4:56 · escrow"]],
         serial: "60XXXXX113", shutter: "900 actuations", warranty: "Local warranty until Aug 2027"
       },
       {
         id: "ixus", name: "Canon IXUS 190", price: "₱6,800", value: 6800, spec: "20 MP · 10x zoom · CCD look",
-        seller: "Y2K Optics MNL", brand: "Canon", condition: "GOOD", grade: "good", cat: "digicam",
+        seller: "Y2K Optics MNL", brand: "Canon", condition: "Good", grade: "good", cat: "digicam",
         colors: [["Black", "#15181f"], ["Silver", "#c9ccd3"], ["Rose", "#d9a1ad"]],
         photos: ["pocket digicam, front", "rear screen on", "battery door", "in-hand scale"],
-        description: "The digicam look people are paying for again — soft highlights, honest grain, straight-out-of-camera colour. Fully working with a fresh battery and strap.",
+        description: "The digicam look people are paying for again, soft highlights, honest grain, straight-out-of-camera colour. Fully working with a fresh battery and strap.",
         usage: ["Best for the Y2K point-and-shoot aesthetic.", "Shoot in daylight; the small sensor struggles after dark.", "Carry spare NB-11LH batteries on trips."],
-        options: ["Camera + battery — ₱6,800", "With 32GB card — ₱7,400", "With soft case — +₱450", "Inspection pass only"],
+        options: ["Camera + battery, ₱6,800", "With 32GB card, ₱7,400", "With soft case, +₱450", "Inspection pass only"],
         videos: [["Getting the digicam look", "4:11 · look"], ["Flash technique indoors", "3:26 · technique"], ["Storing CCD cameras", "2:47 · maintenance"]],
         serial: "01XXXX447", shutter: "Not applicable", warranty: "Inspection pass only"
       },
       {
         id: "sigma30", name: "Sigma 30mm f/1.4 DC", price: "₱9,900", value: 9900, spec: "APS-C prime · no fungus",
-        seller: "Glass Bank PH", brand: "Sigma", condition: "MINT", grade: "mint", cat: "glass",
+        seller: "Glass Bank PH", brand: "Sigma", condition: "Mint", grade: "mint", cat: "glass",
         colors: [["Canon EF-S", "#2b3040"], ["Nikon F", "#3a3f2f"], ["Sony E", "#2f3a48"]],
         photos: ["prime lens, side", "front element", "rear mount & contacts", "hood attached"],
         description: "A fast normal prime for APS-C bodies. Inspected under a torch: no fungus, no haze, no separation, and the aperture blades are dry and snappy.",
-        usage: ["Best for portraits and low light on a crop body.", "Wide open at f/1.4 for separation; f/2.8 for critical sharpness.", "Keep the hood on — the front element is broad and exposed."],
-        options: ["Canon EF-S mount — ₱9,900", "Nikon F mount — ₱9,900", "Sony E mount — ₱11,400", "Add UV filter — +₱600"],
+        usage: ["Best for portraits and low light on a crop body.", "Wide open at f/1.4 for separation; f/2.8 for critical sharpness.", "Keep the hood on, the front element is broad and exposed."],
+        options: ["Canon EF-S mount, ₱9,900", "Nikon F mount, ₱9,900", "Sony E mount, ₱11,400", "Add UV filter, +₱600"],
         videos: [["Checking glass for fungus", "5:33 · escrow"], ["Focus calibration basics", "6:08 · technique"], ["Storing glass in humidity", "3:52 · maintenance"]],
         serial: "52XXXXX20", shutter: "Not applicable", warranty: "Inspection pass only"
       }
     ],
 
-    /* nine services, 3x3 — icon key drives the CSS glyph */
+    /* nine services, 3x3, icon key drives the CSS glyph */
     services: [
       { i: "shield", t: "Escrowed checkout", b: "We hold the payment from booking to handoff.", m: "Every order" },
       { i: "lens", t: "Rider inspection call", b: "Twelve checks on a live three-way call, recorded.", m: "Above ₱10,000" },
@@ -253,7 +253,7 @@
         "</div>";
     },
     inspect: function () {
-      var rows = "", labels = ["POWER ON", "SHUTTER FIRE", "SENSOR CLEAN", "GLASS CLEAR", "DIALS OK"];
+      var rows = "", labels = ["Power on", "Shutter fire", "Sensor clean", "Glass clear", "Dials ok"];
       each(labels, function (n, l) {
         rows += '<span class="inspg__row" style="animation-delay:' + (n * 0.7) + 's"><span class="inspg__box"></span>' + l + "</span>";
       });
@@ -379,17 +379,64 @@
   V.story = function () {
     var root = $("[data-story]");
     if (!root) { return; }
-    var html = "";
-    each(H.v2.story, function (_, s) {
-      html += '' +
-        '<li class="story__item reveal">' +
-          '<span class="story__marker" aria-hidden="true"><span class="story__glyph story__glyph--' + s.g + '"></span></span>' +
-          '<span class="story__year">' + esc(s.year) + "</span>" +
-          '<h3 class="story__title">' + esc(s.t) + "</h3>" +
-          '<p class="story__body">' + esc(s.b) + "</p>" +
-        "</li>";
+    var items = H.v2.story, n = items.length, i = 0, timer = null, touched = false;
+    var tabs = "";
+    each(items, function (k, s) {
+      tabs += '<button class="tl__node" type="button" role="tab" id="tl-tab-' + k + '" aria-controls="tl-panel" aria-selected="' + (k === 0) + '" tabindex="' + (k === 0 ? 0 : -1) + '" data-tl="' + k + '">' +
+        '<span class="tl__dot" aria-hidden="true"><span class="story__glyph story__glyph--' + s.g + '"></span></span>' +
+        '<span class="tl__year">' + esc(s.year) + '</span><span class="u-visually-hidden">, ' + esc(s.t) + "</span></button>";
     });
-    root.innerHTML = html;
+    root.innerHTML = '' +
+      '<div class="tl__rail"><span class="tl__track" aria-hidden="true"><span class="tl__fill" data-tl-fill></span></span>' +
+        '<div class="tl__nodes" role="tablist" aria-label="Company timeline">' + tabs + "</div></div>" +
+      '<div class="tl__panel" id="tl-panel" role="tabpanel" aria-live="polite" data-tl-panel></div>' +
+      '<div class="tl__foot">' +
+        '<button class="slider__arrow slider__arrow--prev" type="button" data-tl-prev aria-label="Previous milestone"><span class="slider__arrow-glyph" aria-hidden="true"></span></button>' +
+        '<button class="slider__arrow slider__arrow--next" type="button" data-tl-next aria-label="Next milestone"><span class="slider__arrow-glyph" aria-hidden="true"></span></button>' +
+        '<span class="tl__count" data-tl-count></span>' +
+        '<span class="tl__hint">Tap a year or use the arrow keys</span>' +
+      "</div>";
+    var nodes = $$("[data-tl]", root), panel = $("[data-tl-panel]", root);
+    function paint(focus) {
+      var s = items[i];
+      each(nodes, function (k, b) {
+        var on = k === i;
+        b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1;
+        b.classList.toggle("tl__node--on", on); b.classList.toggle("tl__node--past", k < i);
+      });
+      $("[data-tl-fill]", root).style.transform = "scaleX(" + (i / (n - 1)) + ")";
+      $("[data-tl-count]", root).textContent = "0" + (i + 1) + " / 0" + n;
+      panel.setAttribute("aria-labelledby", "tl-tab-" + i);
+      panel.innerHTML = '<div class="tl__card" style="--dir:' + (paint.dir || 1) + '">' +
+        '<span class="tl__big" aria-hidden="true">' + esc(s.year) + "</span>" +
+        '<h3 class="tl__title">' + esc(s.t) + "</h3>" +
+        '<p class="tl__body">' + esc(s.b) + "</p></div>";
+      if (focus) { nodes[i].focus(); }
+    }
+    function go(k, focus, user) {
+      k = (k + n) % n; paint.dir = k >= i ? 1 : -1; i = k; paint(focus);
+      if (user) { touched = true; stop(); }
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function play() { if (touched || reduced() || timer) { return; } timer = setInterval(function () { go(i + 1); }, 4200); }
+    each(nodes, function (k, b) {
+      on(b, "click", function () { go(k, false, true); });
+      on(b, "keydown", function (e) {
+        var key = e.key;
+        if (key === "ArrowRight" || key === "ArrowDown") { e.preventDefault(); go(i + 1, true, true); }
+        if (key === "ArrowLeft" || key === "ArrowUp") { e.preventDefault(); go(i - 1, true, true); }
+        if (key === "Home") { e.preventDefault(); go(0, true, true); }
+        if (key === "End") { e.preventDefault(); go(n - 1, true, true); }
+      });
+    });
+    on($("[data-tl-prev]", root), "click", function () { go(i - 1, false, true); });
+    on($("[data-tl-next]", root), "click", function () { go(i + 1, false, true); });
+    on(root, "pointerenter", stop);
+    on(root, "pointerleave", play);
+    paint();
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { if (en[0].isIntersecting) { play(); } else { stop(); } }, { threshold: 0.5 }).observe(root);
+    }
   };
 
   /* ------------------------------------------ 3 products: grid + filtering */
@@ -422,7 +469,64 @@
         "</article>";
     }
 
+    function flipCard(p) {
+      var feats = "";
+      each(p.usage.slice(0, 3), function (_, u) { feats += "<li>" + esc(u) + "</li>"; });
+      return '' +
+        '<article class="flip" data-flip tabindex="0" aria-label="' + esc(p.name) + ', ' + esc(p.price) + '. Press Enter to show details.">' +
+          '<div class="flip__inner">' +
+            '<div class="flip__face flip__front">' +
+              '<div class="card__media flip__media"><span class="slot pcard__slot">[ ' + esc(p.photos[0]) + " ]</span>" +
+                '<span class="pcard__tags">' + (p.best ? '<span class="badge badge--gold">Best seller</span>' : "") +
+                '<span class="badge badge--mint">' + esc(p.condition) + "</span></span></div>" +
+              '<div class="card__body">' +
+                '<h3 class="card__name">' + esc(p.name) + "</h3>" +
+                '<p class="card__spec">' + esc(p.spec) + "</p>" +
+                '<div class="card__price-row"><span class="card__price">' + esc(p.price) + '</span><span class="flip__hint" aria-hidden="true">Tap to flip</span></div>' +
+              "</div>" +
+            "</div>" +
+            '<div class="flip__face flip__back" inert>' +
+              '<p class="flip__seller">' + esc(p.seller) + " · " + esc(p.warranty) + "</p>" +
+              '<h3 class="card__name">' + esc(p.name) + "</h3>" +
+              '<ul class="flip__list">' + feats + "</ul>" +
+              '<div class="flip__actions">' +
+                '<button class="btn btn--primary btn--block" type="button" data-open-product="' + p.id + '">View details</button>' +
+                '<a class="btn btn--ghost btn--block" href="#delivery">Reserve with escrow</a>' +
+              "</div>" +
+            "</div>" +
+          "</div>" +
+        "</article>";
+    }
+
+    function bindFlips() {
+      var mqR = window.matchMedia("(prefers-reduced-motion: reduce)");
+      each($$("[data-flip]", grid), function (_, el) {
+        var back = $(".flip__back", el), front = $(".flip__front", el), hover = false, pinned = false, focused = false;
+        function sync() {
+          var on = hover || pinned || focused;
+          el.classList.toggle("is-flipped", on);
+          if (on) { back.removeAttribute("inert"); front.setAttribute("inert", ""); } else { back.setAttribute("inert", ""); front.removeAttribute("inert"); }
+        }
+        on(el, "pointerenter", function (e) { if (e.pointerType === "mouse") { hover = true; sync(); } });
+        on(el, "pointerleave", function (e) { if (e.pointerType === "mouse") { hover = false; sync(); } });
+        on(el, "click", function (e) { if (e.target.closest("a, button")) { return; } pinned = !pinned; sync(); });
+        on(el, "keydown", function (e) {
+          if (e.target !== el) { if (e.key === "Escape") { pinned = false; focused = false; sync(); el.focus(); } return; }
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pinned = !pinned; sync(); if (pinned) { var b = $("button", back); if (b) { b.focus(); } } }
+        });
+        on(el, "focusin", function () { focused = true; sync(); });
+        on(el, "focusout", function (e) { if (!el.contains(e.relatedTarget)) { focused = false; pinned = false; sync(); } });
+        el.classList.toggle("flip--static", mqR.matches);
+      });
+    }
+
     function draw(list) {
+      if (bestOnly && list.length) {
+        var fh = "";
+        each(list, function (_, p) { fh += flipCard(p); });
+        grid.innerHTML = fh; grid.classList.add("flip-grid"); bindFlips();
+        return;
+      }
       if (!list.length) {
         grid.innerHTML = '<p class="empty">No units match those filters yet. Widen the price range or clear a filter.</p>';
         return;
@@ -566,7 +670,7 @@
             '<div class="tabs__panel" data-panel="opts" hidden><ul class="pmodal__list">' + opts + "</ul></div>" +
             '<div class="tabs__panel" data-panel="vids" hidden>' +
               '<div class="pmodal__videos">' + vids + "</div>" +
-              '<p class="field__hint u-mt-3">Tutorial players are placeholders in this build — drop the real embeds into the same slots.</p>' +
+              '<p class="field__hint u-mt-3">Tutorial players are placeholders in this build, drop the real embeds into the same slots.</p>' +
             "</div>" +
             '<div class="modal__actions u-mt-4">' +
               '<a class="btn btn--primary" href="index.html#delivery">Reserve with escrow</a>' +
@@ -628,7 +732,7 @@
   V.featureSim = function () {
     var tickRoot = $("[data-sim-tick]");
     if (!tickRoot) { return; }
-    var checks = ["POWER ON", "SHUTTER FIRE", "SENSOR CLEAN", "GLASS CLEAR", "DIALS OK", "CARD SLOT", "BATTERY SEAT"];
+    var checks = ["Power on", "Shutter fire", "Sensor clean", "Glass clear", "Dials ok", "Card slot", "Battery seat"];
     var html = "";
     each(checks, function (_, c) { html += '<span class="tick__row"><span class="tick__box"></span>' + c + "</span>"; });
     tickRoot.innerHTML = html;
@@ -643,6 +747,20 @@
       rows[k].classList.add("tick__row--on");
       k++;
     }, 900);
+  };
+
+  /* service icons: 24 grid, 2px round strokes, lens-ring circle as the shared motif.
+     each one carries a single motion: draw (check), bounce, swing */
+  var SVG = function (cls, body) {
+    return '<svg class="svc__svg ' + cls + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + body + "</svg>";
+  };
+  var SVC_ICON = {
+    shield: SVG("ico-draw", '<circle cx="12" cy="12" r="9"></circle><path class="ico-draw__check" pathLength="1" d="M8 12.4l2.8 2.8L16.2 9.6"></path>'),
+    lens: SVG("ico-bounce", '<g class="ico-bounce__g"><path d="M3 9.5A2.5 2.5 0 0 1 5.5 7H8l1.6-2.4h4.8L16 7h2.5A2.5 2.5 0 0 1 21 9.5v8A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5z"></path><circle cx="12" cy="13.4" r="3.6"></circle><circle cx="12" cy="13.4" r="0.6" fill="currentColor"></circle></g>'),
+    pin: SVG("ico-swing", '<g class="ico-swing__g"><path d="M12 3v1.6"></path><path d="M6.5 16.5V11a5.5 5.5 0 0 1 11 0v5.5l1.5 2h-14z"></path><path d="M10 20.6a2 2 0 0 0 4 0"></path></g>'),
+    tag: SVG("ico-draw", '<rect x="5" y="3" width="14" height="18" rx="3"></rect><path d="M9 7.5h6"></path><path class="ico-draw__check" pathLength="1" d="M8.8 13.6l2.3 2.3 4.2-4.4"></path>'),
+    user: SVG("ico-bounce", '<g class="ico-bounce__g"><path d="M13.2 2.8L5.6 13.2h5.6l-1 8 7.8-10.6h-5.6z"></path></g>'),
+    scale: SVG("ico-swing", '<path d="M12 5v15M8 20h8"></path><g class="ico-swing__g"><circle cx="12" cy="4" r="1.2"></circle><path d="M5 7.5h14"></path><path d="M5 7.5l-2.6 6a2.6 2.6 0 0 0 5.2 0zM19 7.5l-2.6 6a2.6 2.6 0 0 0 5.2 0z"></path></g>')
   };
 
   /* --------------------------------------------------------- 6 how-to screens */
@@ -700,12 +818,11 @@
     each(H.v2.services, function (_, s) {
       html += '' +
         '<article class="svc reveal">' +
-          '<span class="svc__icon svc__icon--' + s.i + '" aria-hidden="true"></span>' +
+          '<span class="svc__tile" aria-hidden="true">' + (SVC_ICON[s.i] || SVC_ICON.shield) + "</span>" +
           '<h3 class="svc__title">' + esc(s.t) + "</h3>" +
           '<p class="svc__body">' + esc(s.b) + "</p>" +
           '<span class="svc__meta">' + esc(s.m) + "</span>" +
-          '<span class="svc__glow" aria-hidden="true"></span>' +
-        "</article>";
+                  "</article>";
     });
     root.innerHTML = html;
   };
@@ -903,7 +1020,7 @@
         if (!faceOk || digits < 4) {
           if (note) {
             note.hidden = false;
-            note.textContent = !faceOk ? "Run the face scan to continue — it takes about three seconds." : "Enter all four OTP digits to continue.";
+            note.textContent = !faceOk ? "Run the face scan to continue, it takes about three seconds." : "Enter all four OTP digits to continue.";
             note.focus();
           }
           ok = false;
@@ -915,7 +1032,7 @@
     function fillReceipt() {
       var get = function (name) {
         var el = form.querySelector('[name="' + name + '"]');
-        return el ? ((el.value || "").trim() || "—") : "—";
+        return el ? ((el.value || "").trim() || ", ") : ", ";
       };
       var spot = $(".meetup__spot--active"), slot = $(".meetup__slot--active");
       var rows = [
@@ -1042,7 +1159,7 @@
     var mode = host.getAttribute("data-map") || "meetup";
 
     if (typeof window.maplibregl === "undefined") {
-      host.innerHTML = '<span class="map__fallback">[ live map unavailable offline — the status panel beside it stays live ]</span>';
+      host.innerHTML = '<span class="map__fallback">[ live map unavailable offline, the status panel beside it stays live ]</span>';
       return;
     }
 
@@ -1051,9 +1168,14 @@
       sources: {
         osm: {
           type: "raster",
-          tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
+          /* CARTO basemaps: OSM's own tile server refuses embedded/preview referers ("Access blocked") */
+          tiles: ["a", "b", "c", "d"].map(function (s) {
+            var dark = document.documentElement.getAttribute("data-theme") === "dark";
+            return "https://" + s + ".basemaps.cartocdn.com/" + (dark ? "dark_all" : "rastertiles/voyager") + "/{z}/{x}/{y}" + (window.devicePixelRatio > 1 ? "@2x" : "") + ".png";
+          }),
           tileSize: 256,
-          attribution: "&copy; OpenStreetMap contributors"
+          maxzoom: 19,
+          attribution: "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors &copy; <a href=\"https://carto.com/attributions\">CARTO</a>"
         }
       },
       layers: [{ id: "osm", type: "raster", source: "osm" }]
@@ -1069,7 +1191,7 @@
         attributionControl: true
       });
     } catch (err) {
-      host.innerHTML = '<span class="map__fallback">[ map failed to initialise — status panel still live ]</span>';
+      host.innerHTML = '<span class="map__fallback">[ map failed to initialise, status panel still live ]</span>';
       return;
     }
 
@@ -1082,7 +1204,7 @@
     function pin(kind, name, status) {
       var el = document.createElement("div");
       el.className = "mpin mpin--" + kind;
-      el.setAttribute("title", name + " — " + status);
+      el.setAttribute("title", name + ", " + status);
       el.innerHTML = '' +
         '<span class="mpin__dot"></span>' +
         '<span class="mpin__card"><span class="mpin__name">' + esc(name) + '</span><span class="mpin__status">' + esc(status) + "</span></span>";
@@ -1125,7 +1247,7 @@
       map.addLayer({
         id: "route-line", type: "line", source: "route",
         layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#ff4d97", "line-width": 4 }
+        paint: { "line-color": "#ee5a92", "line-width": 4 }
       });
       map.fitBounds([route[0], route[route.length - 1]], { padding: 90, duration: 0 });
     });
@@ -1179,7 +1301,7 @@
     if (!desk) { return; }
 
     /* topic chips write into the live ticket preview */
-    var ticket = { topic: "Buying a listed unit", unit: "—", name: "—", channel: "Email" };
+    var ticket = { topic: "Buying a listed unit", unit: ", ", name: ", ", channel: "Email" };
     function paintTicket() {
       var out = $("[data-ticket]");
       if (!out) { return; }
@@ -1204,11 +1326,11 @@
     });
     each($$("[data-ticket-field]", desk), function (_, input) {
       on(input, "input", function () {
-        ticket[input.getAttribute("data-ticket-field")] = (input.value || "").trim() || "—";
+        ticket[input.getAttribute("data-ticket-field")] = (input.value || "").trim() || ", ";
         paintTicket();
       });
       on(input, "change", function () {
-        ticket[input.getAttribute("data-ticket-field")] = (input.value || "").trim() || "—";
+        ticket[input.getAttribute("data-ticket-field")] = (input.value || "").trim() || ", ";
         paintTicket();
       });
     });

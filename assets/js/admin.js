@@ -1,5 +1,5 @@
 /* =========================================================================
-   hybrid.cam v2 — admin console (login gate + management views)
+   hybrid.cam v2, admin console (login gate + management views)
    Client-side only: this is a design build, so the "session" lives in
    sessionStorage and the records are seeded fixtures.
    ========================================================================= */
