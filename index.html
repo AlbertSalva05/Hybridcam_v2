@@ -2,18 +2,34 @@
 <html lang="en" class="no-js">
 <head>
 <meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>hybrid.cam — Escrowed camera marketplace, Metro Manila</title>
+<title>hybrid.cam: Escrowed camera marketplace, Metro Manila</title>
 <meta name="description" content="Buy and sell used Canon, Fujifilm, Sony and Nikon cameras in Metro Manila with rider inspection, live tracking and escrowed payment." />
-<meta name="theme-color" content="#060a16" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://hybrid-cam-v2.onrender.com/" />
+<meta name="theme-color" content="#f8f9fc" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="hybrid.cam" />
+<meta property="og:title" content="hybrid.cam: Escrowed camera marketplace, Metro Manila" />
+<meta property="og:description" content="Buy and sell used Canon, Fujifilm, Sony and Nikon cameras in Metro Manila with rider inspection, live tracking and escrowed payment." />
+<meta property="og:url" content="https://hybrid-cam-v2.onrender.com/" />
+<meta property="og:image" content="https://hybrid-cam-v2.onrender.com/assets/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="hybrid.cam lens monogram with the line: Used cameras, inspected before you pay." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://hybrid-cam-v2.onrender.com/assets/og-image.png" />
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="assets/logo/favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png" />
+<link rel="manifest" href="site.webmanifest" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<link rel="stylesheet" href="assets/css/v2.css" />
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+<link rel="stylesheet" href="assets/css/main.css?v=20261021" />
+<link rel="stylesheet" href="assets/css/v2.css?v=20261021" />
 </head>
 <body data-page="home">
 <a class="u-visually-hidden" href="#main">Skip to content</a>
@@ -24,7 +40,10 @@
 <!-- ============================================================ HERO SLIDER -->
 <section class="hero">
   <div class="l-wrap">
-    <div class="slider" data-slider aria-roledescription="carousel" aria-label="How hybrid.cam works"></div>
+    <div class="hero__panel">
+      <div class="beams" aria-hidden="true"><div class="beams__wrap"><span class="beam"></span><span class="beam"></span><span class="beam"></span><span class="beam"></span><span class="beam"></span></div></div>
+      <div class="slider" data-slider aria-roledescription="carousel" aria-label="How hybrid.cam works"></div>
+    </div>
   </div>
 </section>
 
@@ -38,17 +57,27 @@
         <p class="eyebrow eyebrow--gold">About hybrid.cam</p>
         <h2 class="section-head__title">Built around the part everyone dreads.</h2>
         <p class="section-head__lede">One bad meet-up in 2023 turned into a protocol: book a rider, watch the inspection, release the money last.</p>
-        <blockquote class="about__note">
-          “Nothing leaves a seller's hands until we have both looked at it together.”
-          <span class="about__note-by">Rain Villanueva · Founder</span>
-        </blockquote>
-        <dl class="kpi u-mt-4">
-          <div class="kpi__cell"><dt class="kpi__label">Units cleared</dt><dd class="kpi__value">1,284</dd></div>
-          <div class="kpi__cell"><dt class="kpi__label">Failed inspection</dt><dd class="kpi__value kpi__value--pink">3.1%</dd></div>
-          <div class="kpi__cell"><dt class="kpi__label">Median pickup</dt><dd class="kpi__value kpi__value--mint">41 min</dd></div>
-        </dl>
+        <div class="bento u-mt-4" data-bento>
+          <figure class="bento__tile bento__tile--wide" tabindex="0">
+            <blockquote class="bento__quote">“Nothing leaves a seller's hands until we have both looked at it together.”</blockquote>
+            <figcaption class="bento__by">Rain Villanueva · Founder</figcaption>
+          </figure>
+          <div class="bento__tile bento__tile--tall" tabindex="0">
+            <p class="bento__label">Units cleared</p>
+            <p class="bento__value">1,284</p>
+            <p class="bento__note">Since escrow launched in 2024, every one inspected on a live call.</p>
+          </div>
+          <div class="bento__tile" tabindex="0">
+            <p class="bento__label">Failed inspection</p>
+            <p class="bento__value bento__value--pink">3.1%</p>
+          </div>
+          <div class="bento__tile" tabindex="0">
+            <p class="bento__label">Median pickup</p>
+            <p class="bento__value bento__value--mint">41 min</p>
+          </div>
+        </div>
       </div>
-      <ol class="story" data-story></ol>
+      <div class="tl reveal" data-story></div>
     </div>
   </div>
 </section>
@@ -76,7 +105,7 @@
     <div class="l-grid l-grid--thirds">
       <article class="sim-card reveal">
         <div class="sim-card__stage" aria-hidden="true">
-          <div class="vault"><span class="vault__ring"></span><span class="vault__label">₱36,000 HELD</span></div>
+          <div class="vault"><span class="vault__ring"></span><span class="vault__label">₱36,000 held</span></div>
         </div>
         <h3 class="sim-card__title">Escrow that holds its nerve</h3>
         <p class="sim-card__body">Funds are captured at booking and sit still until the delivery OTP. The seller can see them; nobody can move them early.</p>
@@ -93,11 +122,11 @@
             <span class="route__stop route__stop--a"></span>
             <span class="route__stop route__stop--b"></span>
             <span class="route__pin"></span>
-            <span class="route__label">RIDER · SAN MIGUEL → ERMITA</span>
+            <span class="route__label">Rider · San Miguel → Ermita</span>
           </div>
         </div>
         <h3 class="sim-card__title">One rider, both ways</h3>
-        <p class="sim-card__body">If the unit fails inspection the same rider takes it back — escrow already covered the trip.</p>
+        <p class="sim-card__body">If the unit fails inspection the same rider takes it back, escrow already covered the trip.</p>
       </article>
     </div>
   </div>
@@ -156,7 +185,7 @@
 
     <div class="panel panel--pad reveal">
       <div role="tabpanel" id="pane-standard" aria-labelledby="tab-standard" data-channel-pane="standard">
-        <p class="field__hint">The address is tokenised — only the assigned rider ever sees the full line. Insured in transit up to the escrowed value.</p>
+        <p class="field__hint">The address is tokenised, only the assigned rider ever sees the full line. Insured in transit up to the escrowed value.</p>
       </div>
       <div role="tabpanel" id="pane-meetup" aria-labelledby="tab-meetup" data-channel-pane="meetup" hidden>
         <p class="field__hint">Both parties get a code at a barangay- or mall-monitored point. Location sharing expires fifteen minutes after handoff.</p>
@@ -179,11 +208,11 @@
             <p class="field">
               <label class="field__label" for="w-unit">Unit</label>
               <select class="field__select" id="w-unit" name="unit" data-required>
-                <option>Canon EOS R50 + RF-S 18-45mm — ₱41,500</option>
-                <option>Fujifilm X-S10 — ₱44,000</option>
-                <option>Sony ZV-1 — ₱24,500</option>
-                <option>Nikon Z fc + 28mm — ₱52,000</option>
-                <option>Sigma 30mm f/1.4 DC — ₱9,900</option>
+                <option>Canon EOS R50 + RF-S 18-45mm, ₱41,500</option>
+                <option>Fujifilm X-S10, ₱44,000</option>
+                <option>Sony ZV-1, ₱24,500</option>
+                <option>Nikon Z fc + 28mm, ₱52,000</option>
+                <option>Sigma 30mm f/1.4 DC, ₱9,900</option>
               </select>
             </p>
             <p class="field">
@@ -308,7 +337,7 @@
               <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 3" />
               <input class="otp__slot" type="text" inputmode="numeric" maxlength="1" aria-label="OTP digit 4" />
             </div>
-            <p class="field__hint">Simulation build — any four digits pass. In production the code expires after five minutes.</p>
+            <p class="field__hint">Simulation build, any four digits pass. In production the code expires after five minutes.</p>
           </fieldset>
           <p class="field__error u-mt-3" data-verify-note tabindex="-1" hidden></p>
         </div>
@@ -362,9 +391,9 @@
             <a class="btn btn--ghost btn--sm" href="mailto:hello@hybrid.cam">Email</a>
           </div>
         </div>
-        <div class="desk__stat"><span>Median first reply</span><span class="desk__stat-value">14 min</span></div>
-        <div class="desk__stat"><span>Escrow disputes closed in 48h</span><span class="desk__stat-value">100%</span></div>
-        <div class="desk__stat"><span>Calls answered by a human</span><span class="desk__stat-value">Always</span></div>
+        <div class="desk__stat"><span>Reply channels</span><span class="desk__stat-value">Email, SMS, Viber, call</span></div>
+        <div class="desk__stat"><span>Escrow emergencies</span><span class="desk__stat-value">Any hour</span></div>
+        <div class="desk__stat"><span>Who answers</span><span class="desk__stat-value">A person on the desk</span></div>
 
         <div class="desk__art" aria-hidden="true">
           <span class="desk-art__grid"></span>
@@ -380,7 +409,7 @@
       </div>
 
       <div class="desk__composer">
-        <p class="desk__label">Or compose an inquiry — it builds a ticket as you type</p>
+        <p class="desk__label">Or compose an inquiry, it builds a ticket as you type</p>
         <div class="filter-bar u-mt-3" role="group" aria-label="Inquiry topic">
           <button class="filter-bar__chip filter-bar__chip--active" type="button" data-topic aria-pressed="true">Buying a listed unit</button>
           <button class="filter-bar__chip" type="button" data-topic aria-pressed="false">Selling a camera</button>
@@ -422,9 +451,9 @@
 
           <div class="wizard__foot">
             <button class="btn btn--primary" type="submit">Send inquiry</button>
-            <span class="wizard__note">We answer within one business day — usually much sooner.</span>
+            <span class="wizard__note">We answer within one business day, usually much sooner.</span>
           </div>
-          <p class="field__hint" data-desk-note tabindex="-1" hidden>Thanks — your ticket is queued. This simulation build does not send real mail.</p>
+          <p class="field__hint" data-desk-note tabindex="-1" hidden>Thanks, your ticket is queued. This simulation build does not send real mail.</p>
         </form>
       </div>
     </div>
@@ -489,8 +518,10 @@
 </aside>
 
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="assets/js/gate.js"></script>
-<script src="assets/js/v2.js"></script>
+<script src="assets/js/main.js?v=20261021"></script>
+<script src="assets/js/gate.js?v=20261021"></script>
+<script src="assets/js/v2.js?v=20261021"></script>
+<script src="assets/js/motion.js?v=20261021"></script>
+<script type="module" src="assets/js/tilt3d.js?v=20261021"></script>
 </body>
 </html>

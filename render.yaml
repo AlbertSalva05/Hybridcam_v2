@@ -1,10 +1,11 @@
-# Render static site — hybrid.cam v2
 services:
   - type: web
     name: hybrid-cam-v2
     runtime: static
-    staticPublishPath: .
     buildCommand: ""
+    staticPublishPath: .
+    # push the contents of this folder as the repository root
+    pullRequestPreviewsEnabled: false
     routes:
       - type: rewrite
         source: /*
@@ -13,3 +14,45 @@ services:
       - path: /*
         name: X-Content-Type-Options
         value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(self), microphone=(), geolocation=(self), payment=()
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains
+      - path: /
+        name: Cache-Control
+        value: no-cache
+      - path: /*.html
+        name: Cache-Control
+        value: no-cache
+      - path: /assets/js/*
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /assets/css/*
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /assets/logo/*
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /assets/og-image.png
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /site.webmanifest
+        name: Content-Type
+        value: application/manifest+json
+      - path: /site.webmanifest
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /sitemap.xml
+        name: Content-Type
+        value: application/xml; charset=utf-8
+      - path: /robots.txt
+        name: Content-Type
+        value: text/plain; charset=utf-8

@@ -1,2 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /source.html
+Disallow: /login.html
+
+Sitemap: https://hybrid-cam-v2.onrender.com/sitemap.xml
