@@ -115,8 +115,20 @@ tile.addEventListener("focusin",onIn);tile.addEventListener("focusout",onOut);
 });
 });
 }
-var SPOT_SEL=".sim-card, .svc";
+var SPOT_SEL=".sim-card, .svc",spotReady=false;
+function spotSetup(){
+if(spotReady){return;}spotReady=true;
+if(window.CSS&&CSS.registerProperty){
+[["--mx","<length-percentage>","-400px"],["--my","<length-percentage>","-400px"],["--bx","<length-percentage>","-400px"],["--by","<length-percentage>","-400px"],["--spot-a","<number>","0"]].forEach(function(p){
+try{CSS.registerProperty({name:p[0],syntax:p[1],inherits:true,initialValue:p[2]});}catch(e){}
+});
+}
+var st=document.createElement("style");
+st.textContent="@media (prefers-reduced-motion:no-preference){.spot{transition:--bx .18s linear,--by .18s linear,--spot-a .45s ease}.spot--leave{transition:--mx .45s ease-in,--my .45s ease-in,--bx .45s ease-in,--by .45s ease-in,--spot-a .45s ease}}";
+document.head.appendChild(st);
+}
 function spotlight(){
+spotSetup();
 [].forEach.call(document.querySelectorAll(SPOT_SEL),function(card){
 if(card.parentNode.classList&&card.parentNode.classList.contains("spot")){return;}
 var wrap=document.createElement("div");wrap.className="spot";
